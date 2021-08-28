@@ -10,6 +10,8 @@ namespace Vehicules.API.Data
 
         }
 
+        public DbSet<Brand> Brands { get; set; }
+
         public DbSet<DocumentType> DocumentTypes { get; set; }
 
         public DbSet<Procedure> Procedures { get; set; }
@@ -22,6 +24,7 @@ namespace Vehicules.API.Data
             modelBuilder.Entity<VehicleType>().HasIndex(x => x.Description).IsUnique();
             modelBuilder.Entity<Procedure>().HasIndex(x => x.Description).IsUnique();
             modelBuilder.Entity<DocumentType>().HasIndex(x => x.Description).IsUnique();
+            modelBuilder.Entity<Brand>().HasIndex(x => x.Description).IsUnique();
         }
     }
 }
