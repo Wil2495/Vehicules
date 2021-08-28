@@ -16,6 +16,10 @@ namespace Vehicules.API.Data.Entities
         [Required(ErrorMessage = "Él campo {0} es obligatorio.")]
         public string Description { get; set; }
 
+        public static implicit operator VehicleType(Procedure v)
+        {
+            throw new NotImplementedException();
+        }
     }
     
 }
