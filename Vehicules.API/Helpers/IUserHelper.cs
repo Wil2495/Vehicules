@@ -1,24 +1,28 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Vehicules.API.Data.Entities;
+using Vehicules.API.Models;
 
 namespace Vehicules.API.Helpers
 {
     public interface IUserHelper
     {
-     
-    Task<User> GetUserAsync(string email);
-      
-    Task<IdentityResult> AddUserAsync(User user, string password);
 
-    Task CheckRoleAsync(string roleName);
+        Task<User> GetUserAsync(string email);
 
-    Task AddUserToRoleAsync(User user, string roleName);
+        Task<IdentityResult> AddUserAsync(User user, string password);
 
-    Task<bool> IsUserInRoleAsync(User user, string roleName);
+        Task CheckRoleAsync(string roleName);
+
+        Task AddUserToRoleAsync(User user, string roleName);
+
+        Task<bool> IsUserInRoleAsync(User user, string roleName);
         Task<string> GenerateEmailConfirmationTokenAsync(User user);
+
+
+        Task<SignInResult> LoginAsync(LoginViewModel model);
+
+        Task LogoutAsync();
+
     }
 }

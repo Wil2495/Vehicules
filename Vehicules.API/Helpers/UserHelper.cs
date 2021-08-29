@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading.Tasks;
 using Vehicules.API.Data;
 using Vehicules.API.Data.Entities;
+using Vehicules.API.Models;
 
 namespace Vehicules.API.Helpers
 {
@@ -12,12 +12,14 @@ namespace Vehicules.API.Helpers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly DataContext _context;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserHelper(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, DataContext context)
+        public UserHelper(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, DataContext context, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _context = context;
+            _signInManager = signInManager;
         }
 
 
@@ -48,12 +50,22 @@ namespace Vehicules.API.Helpers
         public async Task<User> GetUserAsync(string email)
         {
             return await _context.Users.Include(x => x.DocumentType).
-                FirstOrDefaultAsync(x => x.Email  == email);
+                FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task<bool> IsUserInRoleAsync(User user, string roleName)
         {
             return await _userManager.IsInRoleAsync(user, roleName);
+        }
+
+        public async Task<SignInResult> LoginAsync(LoginViewModel model)
+        {
+            return await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }
