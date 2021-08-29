@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Vehicules.API.Data.Entities
 {
@@ -10,6 +11,9 @@ namespace Vehicules.API.Data.Entities
         [MaxLength(50, ErrorMessage = "Él campo {0} no puede tener más de {1} carácteres.")]
         [Required(ErrorMessage = "Él campo {0} es obligatorio.")]
         public string Description { get; set; }
+
+
+        public ICollection<User> Users { get; set; }
 
     }
 }
